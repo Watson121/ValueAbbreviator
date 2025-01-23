@@ -5,24 +5,47 @@
 #include <map>
 #include <string>
 #include <iomanip>  
+#include <cmath>
+#include <sstream> 
+#include <cfloat> 
 
 using namespace std;
 
 
-
-void MonetaryValueAbbrivation(float input) {
+void MonetaryValueAbbrivation(double input) {
 	const char* suffixs[] = { "", "K", "M", "B", "T" };
 	int suffixIndex = 0; 
 
-	while (input >= 1000) {
+	while (input >= 1000 && suffixIndex < 4) {
 		input /= 1000;
 		suffixIndex++;
 	}
 
-	cout << input << fixed << setprecision(2) << suffixs[suffixIndex] << endl;
+	cout << fixed << setprecision(2) << input << suffixs[suffixIndex] << endl;
 }
 
-void DataStorageAbbrivation(float input) {
+string DataStorageAbbrivation(long long input) {
+	
+	const char* suffixes[] = { "B", "KB", "MB", "GB", "TB"};
+	const long long exponents[] = { 1e0, 1e3, 1e6, 1e9, 1e12 };
+
+	// Handling case if input is 0
+	if (input == 0) {
+		return "0 B";
+	}
+
+	// Working out what the suffix will be
+	int suffixIndex = static_cast<int>(log(input) / log(1024));
+
+	// output string stream
+	ostringstream oss;
+
+	// Calculating the result
+	double result = static_cast<double>(input) / exponents[suffixIndex];
+	oss.precision(1);
+	oss << fixed << result;
+
+	return oss.str() + " " + suffixes[suffixIndex];
 
 }
 
@@ -49,10 +72,12 @@ void MainMenu() {
 		break;
 	default:
 		cout << "\nPlease choose valid option" << endl;
+		system("pause");
+		MainMenu();
 		break;
 	}
 
-	int value;
+	long long value;
 	cout << "\nInput number:" << endl;
 	cin >> value;
 
@@ -61,13 +86,13 @@ void MainMenu() {
 		MonetaryValueAbbrivation(value);
 		break;
 	case 2:
-		DataStorageAbbrivation(value);
+		cout << DataStorageAbbrivation(2100000000000LL) << endl;
 		break;
 	}
 
-	system("pause");
+	//system("pause");
 
-	MainMenu();
+	//MainMenu();
 }
 
 
@@ -75,6 +100,7 @@ void MainMenu() {
 int main()
 {
 	MainMenu();
+	return 0;
 }
 
 
