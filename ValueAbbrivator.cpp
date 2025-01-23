@@ -2,11 +2,83 @@
 //
 
 #include <iostream>
+#include <map>
+#include <string>
+#include <iomanip>  
+
+using namespace std;
+
+
+
+void MonetaryValueAbbrivation(float input) {
+	const char* suffixs[] = { "", "K", "M", "B", "T" };
+	int suffixIndex = 0; 
+
+	while (input >= 1000) {
+		input /= 1000;
+		suffixIndex++;
+	}
+
+	cout << input << fixed << setprecision(2) << suffixs[suffixIndex] << endl;
+}
+
+void DataStorageAbbrivation(float input) {
+
+}
+
+// Loading up the main menu
+void MainMenu() {
+
+	//Clearing Screen
+	system("cls");
+	
+	cout << "Main Menu:" << endl;
+	cout << "\nOption 1: Would you like to abbreviate a monetary value?" << endl;
+	cout << "Option 2: Would you like to abbreviate a data storage value?" << endl;
+	cout << "\nEnter 1 or 2:" << endl;
+
+	int option;
+	cin >> option;
+
+	switch (option) {
+	case 1:
+		cout << "\nYou have chosen Money" << endl;
+		break;
+	case 2:
+		cout << "\nYou have chosen Data" << endl;
+		break;
+	default:
+		cout << "\nPlease choose valid option" << endl;
+		break;
+	}
+
+	int value;
+	cout << "\nInput number:" << endl;
+	cin >> value;
+
+	switch (option) {
+	case 1:
+		MonetaryValueAbbrivation(value);
+		break;
+	case 2:
+		DataStorageAbbrivation(value);
+		break;
+	}
+
+	system("pause");
+
+	MainMenu();
+}
+
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	MainMenu();
 }
+
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
