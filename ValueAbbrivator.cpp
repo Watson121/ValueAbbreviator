@@ -68,43 +68,47 @@ void MainMenu() {
 	//Clearing Screen
 	system("cls");
 	
+	while (true) {
 
+		cout << "\nMain Menu:" << endl;
+		cout << "\nOption 1: Would you like to abbreviate a monetary value?" << endl;
+		cout << "Option 2: Would you like to abbreviate a data storage value?" << endl;
+		cout << "\nEnter 1, 2 or 0 to Quit:" << endl;
 
-	cout << "Main Menu:" << endl;
-	cout << "\nOption 1: Would you like to abbreviate a monetary value?" << endl;
-	cout << "Option 2: Would you like to abbreviate a data storage value?" << endl;
-	cout << "\nEnter 1 or 2:" << endl;
+		int option;
+		cin >> option;
 
-	int option;
-	cin >> option;
+		if (option == 0) {
+			break;
+		}
 
-	switch (option) {
-	case 1:
-		cout << "\nYou have chosen Money" << endl;
-		break;
-	case 2:
-		cout << "\nYou have chosen Data" << endl;
-		break;
-	default:
-		cout << "\nPlease choose valid option" << endl;
-		system("pause");
-		break;
+		switch (option) {
+		case 1:
+			cout << "\nYou have chosen Money" << endl;
+			break;
+		case 2:
+			cout << "\nYou have chosen Data" << endl;
+			break;
+		default:
+			cout << "\nPlease choose valid option" << endl;
+			system("pause");
+			break;
+		}
+
+		long long value;
+		cout << "\nInput number:" << endl;
+		cin >> value;
+
+		cout << "Abbreivated value: ";
+		switch (option) {
+		case 1:
+			cout << MonetaryValueAbbrivation(value) << endl;
+			break;
+		case 2:
+			cout << DataStorageAbbrivation(value) << endl;
+			break;
+		}
 	}
-
-	long long value;
-	cout << "\nInput number:" << endl;
-	cin >> value;
-
-	cout << "Abbreivated value: ";
-	switch (option) {
-	case 1:
-		cout << MonetaryValueAbbrivation(value) << endl;
-		break;
-	case 2:
-		cout << DataStorageAbbrivation(value) << endl;
-		break;
-	}
-
 	//system("pause");
 
 	//MainMenu();
