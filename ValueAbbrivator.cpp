@@ -12,18 +12,31 @@
 using namespace std;
 
 
-void MonetaryValueAbbrivation(double input) {
+// Function that works out monetary value abbrivation
+string MonetaryValueAbbrivation(long long input) {
 	const char* suffixs[] = { "", "K", "M", "B", "T" };
-	int suffixIndex = 0; 
+	const long long exponents[] = { 1, 1e3, 1e6, 1e9, 1e12, 1e15 };
 
-	while (input >= 1000 && suffixIndex < 4) {
-		input /= 1000;
-		suffixIndex++;
+	// Handling case if input is 0
+	if (input == 0) {
+		return "0";
 	}
 
-	cout << fixed << setprecision(2) << input << suffixs[suffixIndex] << endl;
+	// Working out what suffix and exponent to use
+	int indexToUse = static_cast<int>(log(input) / log(1000));
+
+	// output string stream
+	ostringstream oss;
+
+	// calculating the result
+	double result = static_cast<double>(input) / exponents[indexToUse];
+	oss.precision(1);
+	oss << fixed << result;
+
+	return oss.str() + " " + suffixs[indexToUse];
 }
 
+// Funciton that works out data storage abbrivation
 string DataStorageAbbrivation(long long input) {
 	
 	const char* suffixes[] = { "B", "KB", "MB", "GB", "TB"};
@@ -55,6 +68,8 @@ void MainMenu() {
 	//Clearing Screen
 	system("cls");
 	
+
+
 	cout << "Main Menu:" << endl;
 	cout << "\nOption 1: Would you like to abbreviate a monetary value?" << endl;
 	cout << "Option 2: Would you like to abbreviate a data storage value?" << endl;
@@ -73,7 +88,6 @@ void MainMenu() {
 	default:
 		cout << "\nPlease choose valid option" << endl;
 		system("pause");
-		MainMenu();
 		break;
 	}
 
@@ -81,12 +95,13 @@ void MainMenu() {
 	cout << "\nInput number:" << endl;
 	cin >> value;
 
+	cout << "Abbreivated value: ";
 	switch (option) {
 	case 1:
-		MonetaryValueAbbrivation(value);
+		cout << MonetaryValueAbbrivation(value) << endl;
 		break;
 	case 2:
-		cout << DataStorageAbbrivation(2100000000000LL) << endl;
+		cout << DataStorageAbbrivation(value) << endl;
 		break;
 	}
 
